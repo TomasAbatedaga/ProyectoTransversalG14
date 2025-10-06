@@ -4,6 +4,7 @@ package gp14_transversal;
 import Modelo.Alumno;
 import Persistencia.AlumnoData;
 import Persistencia.Conexion;
+import Vista.MenuPrincipal;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -12,6 +13,7 @@ public class Gp14_transversal {
 
    
     public static void main(String[] args) {
+        MenuPrincipal.main(args);
         
         Alumno alejandro = new Alumno(22113355, "Peralta", "Alejandro", LocalDate.of(2005,Month.FEBRUARY,19), true);
         Alumno maxi = new Alumno(39393939, "Velazquez", "Maxi", LocalDate.of(2002,Month.JULY,21), true);
@@ -21,23 +23,8 @@ public class Gp14_transversal {
         Alumno alan = new Alumno(77667766, "Jaciuk", "Alan", LocalDate.of(1991,Month.OCTOBER,01), true);
         Alumno lucas = new Alumno(88998899, "Zarate", "Luquitas", LocalDate.of(2001,Month.MAY,02), true);
         Alumno fernando = new Alumno(44554455, "Suarez", "Fernando", LocalDate.of(1982,Month.FEBRUARY,27), true);
-        Alumno fernando2 = new Alumno(4467455, "Rodriguez", "Fernando", LocalDate.of(1982,Month.FEBRUARY,27), true);
         
-        Conexion con = new Conexion();
         AlumnoData operacionesAlumnos = new AlumnoData();
-        
-        
-        
-        operacionesAlumnos.agregarAlumno(fernando2);
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }
     
 }
