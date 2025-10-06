@@ -10,33 +10,29 @@ import java.sql.SQLException;
 
 public class Conexion {
     
-    private static Conexion conexion = null;
-    
-    public Conexion(){
-        try{
-            Class.forName("org.mariadb.jdbc.Driver");
-        
-        }catch (ClassNotFoundException ex){
-            JOptionPane.showMessageDialog(null, "Class Conexion: Error en la carga de driver");
-        }
-            
-        
+    private static final String URL="jdbc:mariadb://localhost:3306/";
+    private static final String DB="gp20uni";
+    private static final String USUARIO="root";
+    private static final String CLAVE="";
+    private static org.mariadb.jdbc.Connection conexion;
+
+    public Conexion() {
     }
     
-    
-    
-    public static Connection getConexion(){
-        Connection con = null;
+    public static org.mariadb.jdbc.Connection getConectar(){
         if(conexion == null){
-            conexion = new Conexion();
+            try {
+                Class.forName("org.mariadb.jdbc.Driver");
+                conexion=(org.mariadb.jdbc.Connection) DriverManager.getConnection(URL+DB,USUARIO,CLAVE);
+                JOptionPane.showMessageDialog(null, "Se conectó");
+                
+            } catch (ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(null, "Problemas accediendo a la clase "+e.getMessage());
+            } catch (SQLException ex){
+                JOptionPane.showMessageDialog(null, "Error al conectar a la base de datos "+ex.getMessage());
+            }
         }
-        try{
-            con = DriverManager.getConnection("jdbc:mariadb://localhost/gp14_universidad", "root", "");
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Error de conexion");
-        }
-        
-        return con;
+        return conexion;
     }
     
     

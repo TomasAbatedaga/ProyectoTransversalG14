@@ -1,6 +1,17 @@
 # Compiled class file
 *.class
 
+# === NetBeans (permitir abrir proyecto, evitar conflictos) ===
+nbproject/private/
+nbproject/project.properties
+nbproject/build-impl.xml
+
+# === Carpetas de salida ===
+build/
+dist/
+out/
+target/
+
 # Log file
 *.log
 

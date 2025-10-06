@@ -10,18 +10,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-
-
 public class AlumnoData {
     
     private Connection con = null;
     
-    public AlumnoData(Conexion conexion){
-        this.con = conexion.getConexion();
+    public AlumnoData(){
+        con = Conexion.getConectar();
     }
-    
-    
-    
     
     public void agregarAlumno(Alumno a){
         
@@ -29,7 +24,6 @@ public class AlumnoData {
         
         try{
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
             ps.setInt(1, a.getDni());
             ps.setString(2, a.getApellido());
             ps.setString(3, a.getNombre());
@@ -38,24 +32,15 @@ public class AlumnoData {
             int registros = ps.executeUpdate();
             System.out.println(registros);
             ResultSet rs = ps.getGeneratedKeys();
-            
             if(rs.next()){
-                
                 a.setId_alumno(rs.getInt(1));
                 System.out.println("Alta Exitosa");
-                
-                
             } else{
                 System.out.println("No se pudo obtener el id");
             }
-                  
-            
-        
         } catch (SQLException ex) {
             System.out.println("Error de conexion: " + ex);
-        }        
-        
-        
+        }    
     }
     
     public List<Alumno> listarAlumnos(){
@@ -63,10 +48,8 @@ public class AlumnoData {
         List<Alumno> alumnos = new ArrayList<>();
         String sql = "SELECT * from alumno";
         try{
-            
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet resultado = ps.executeQuery();
-            
             while(resultado.next()){
                 a = new Alumno();
                 a.setId_alumno(resultado.getInt("id_alumno"));
@@ -77,15 +60,10 @@ public class AlumnoData {
                 a.setEstado(resultado.getBoolean("estado"));
                 alumnos.add(a);
             }
-            
             ps.close();
-            
-            
         } catch (SQLException ex) {
             System.out.println("Error de conexion: " + ex);
         }   
-        
-        
         return alumnos;
     }
     
@@ -107,12 +85,9 @@ public class AlumnoData {
                 a.setEstado(rs.getBoolean("estado"));
             }
             System.out.println(a.toString());
-            
-            
         } catch (SQLException ex) {
             System.out.println("No existe ese dni" + ex);
         }
-        
         return a;
     }
     
@@ -131,15 +106,9 @@ public class AlumnoData {
             ps.executeUpdate();
             ps.close();
             System.out.println("Alumno actualizado correctamente");
-            
-            
-            
         } catch (SQLException ex) {
             System.out.println("Error de actualizacion " + ex);
         }
-        
-        
-        
     }
     
     public void eliminarAlumno(int dni){
@@ -152,17 +121,10 @@ public class AlumnoData {
             ps.executeUpdate();
             ps.close();
             System.out.println("Alumno eliminado exitosamente");
-            
-            
-            
         } catch (SQLException ex) {
             System.out.println("Error al borrar alumno" + ex);
         }
-        
-        
-        
     }
-    
     
     public void altaLogica(Alumno a){
         
@@ -174,15 +136,9 @@ public class AlumnoData {
             ps.executeUpdate();
             ps.close();
             System.out.println("Alumno dado de alta correctamente");
-            
-            
-            
         } catch (SQLException ex) {
             System.out.println("Error de actualizacion " + ex);
         }
-        
-        
-        
     }
     
     public void bajaLogica(Alumno a){
@@ -195,20 +151,8 @@ public class AlumnoData {
             ps.executeUpdate();
             ps.close();
             System.out.println("Alumno dado de baja correctamente");
-            
-            
-            
         } catch (SQLException ex) {
             System.out.println("Error de actualizacion " + ex);
         }
-        
-        
-        
     }
-    
-    
-    
-    
-    
-    
 }

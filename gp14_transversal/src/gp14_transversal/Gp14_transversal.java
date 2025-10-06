@@ -24,7 +24,7 @@ public class Gp14_transversal {
         Alumno fernando2 = new Alumno(4467455, "Rodriguez", "Fernando", LocalDate.of(1982,Month.FEBRUARY,27), true);
         
         Conexion con = new Conexion();
-        AlumnoData operacionesAlumnos = new AlumnoData(con);
+        AlumnoData operacionesAlumnos = new AlumnoData();
         
         
         
