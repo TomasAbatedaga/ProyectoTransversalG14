@@ -72,7 +72,7 @@ public class MateriaData {
         return materias;
     }
     
-    public Materia buscarMateria (String nombre){
+    public Materia buscarMateriaPorNombre (String nombre){
         Materia m = null;
         String sql = "SELECT * FROM materia WHERE nombre = ?";
         PreparedStatement ps;
@@ -80,7 +80,7 @@ public class MateriaData {
             ps = con.prepareStatement(sql);
             ps.setString(1, m.getNombre());
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            if(rs.next()){
                 m = new Materia();
                 m.setId_materia(rs.getInt("id_materia"));
                 m.setNombre(rs.getString("nombre"));
@@ -94,21 +94,42 @@ public class MateriaData {
         return m;
     }
     
+    public Materia buscarMateriaPorId (int id){
+        Materia m = null;
+        String sql = "SELECT * FROM materia WHERE id_materia = ?";
+        PreparedStatement ps;
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, m.getId_materia());
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                m = new Materia();
+                m.setId_materia(rs.getInt("id_materia"));
+                m.setNombre(rs.getString("nombre"));
+                m.setAnio(rs.getInt("anio"));
+                m.setEstado(rs.getBoolean("estado"));
+                }
+            System.out.println(m.toString());
+        } catch (SQLException ex) {
+            System.out.println("No existe esa materia" + ex);
+        }
+        return m;
+    }
     
-    public void actualizarMateria(Materia m){
+    public void actualizarMateria (Materia m){
         
         String sql = "UPDATE materia SET nombre=?, anio=?, estado=? WHERE nombre=?";
         
         try{
-            PreparedStatement ps = con.prepareStatement(sql);
+           PreparedStatement ps = con.prepareStatement(sql);
            ps.setString(1, m.getNombre());
            ps.setInt(2, m.getAnio());
            ps.setBoolean(3, m.isEstado());
            ps.executeUpdate();
            ps.close();
-            System.out.println("Materia actualizada correctamente");
+           System.out.println("Materia actualizada correctamente");
         } catch (SQLException ex) {
-            System.out.println("Error de actualizacion " + ex);
+           System.out.println("Error de actualizacion " + ex);
         }
     }
     

@@ -26,14 +26,13 @@ public class Gp14_transversal {
         
         //AlumnoData operacionesAlumnos = new AlumnoData();
        // operacionesAlumnos.agregarAlumno(fernando);
-       // MateriaData materiaData = new MateriaData();
-       // Materia materia = new Materia("Matematica", 2024, false);
-      //  materiaData.agregarMateria(materia);        
-
+        MateriaData materiaData = new MateriaData();
+        Materia materia = new Materia("Matematica", 2024, false);
+        Materia materia2 = new Materia("Matematica", 2025, false);
+        //materiaData.agregarMateria(materia);
        // operacionesAlumnos.altaLogica(fernando);
        //materiaData.altaLogica(materia);
         //System.out.println(materia.getId_materia());
-        
         
     }
     
