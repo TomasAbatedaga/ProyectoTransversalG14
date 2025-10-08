@@ -112,7 +112,7 @@ public class MateriaData {
         }
     }
     
-    public void eliminarAlumno(int id){
+    public void eliminarMateria(int id){
         
         String sql = "DELETE FROM materia WHERE id_materia=?";
         

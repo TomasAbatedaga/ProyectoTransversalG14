@@ -22,12 +22,14 @@ public class Materia {
     }
 
     public Materia(String nombre, int anio, boolean estado) {
+        this.id_materia = -1;
         this.nombre = nombre;
         this.anio = anio;
         this.estado = estado;
     }
 
     public Materia() {
+        this.id_materia =-1;
     }
 
     public int getId_materia() {

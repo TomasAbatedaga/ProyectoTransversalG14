@@ -27,21 +27,76 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        escritorio = new javax.swing.JDesktopPane();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menu_alumnos = new javax.swing.JMenu();
+        menu_materias = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 830, Short.MAX_VALUE)
+        );
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 664, Short.MAX_VALUE)
+        );
+
+        menu_alumnos.setText("Alumnos");
+        menu_alumnos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menu_alumnosMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(menu_alumnos);
+
+        menu_materias.setText("Materias");
+        menu_materias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menu_materiasMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(menu_materias);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 827, Short.MAX_VALUE)
+            .addComponent(escritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 643, Short.MAX_VALUE)
+            .addComponent(escritorio)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void menu_alumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_alumnosMouseClicked
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaAlumnos vistaAlumnos = new VistaAlumnos();
+        vistaAlumnos.setVisible(true);
+        escritorio.add(vistaAlumnos);
+        escritorio.moveToFront(vistaAlumnos);
+    }//GEN-LAST:event_menu_alumnosMouseClicked
+
+    private void menu_materiasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_materiasMouseClicked
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaMaterias vistaMaterias = new VistaMaterias();
+        vistaMaterias.setVisible(true);
+        escritorio.add(vistaMaterias);
+        escritorio.moveToFront(vistaMaterias);
+    }//GEN-LAST:event_menu_materiasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -79,5 +134,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu menu_alumnos;
+    private javax.swing.JMenu menu_materias;
     // End of variables declaration//GEN-END:variables
 }
