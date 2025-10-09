@@ -2,9 +2,11 @@
 package gp14_transversal;
 
 import Modelo.Alumno;
+import Modelo.Inscripcion;
 import Modelo.Materia;
 import Persistencia.AlumnoData;
 import Persistencia.Conexion;
+import Persistencia.InscripcionData;
 import Persistencia.MateriaData;
 import Vista.MenuPrincipal;
 import java.time.LocalDate;
@@ -24,11 +26,16 @@ public class Gp14_transversal {
         Alumno lucas = new Alumno(88998899, "Zarate", "Luquitas", LocalDate.of(2001,Month.MAY,02), true);
         Alumno fernando = new Alumno( 44554455, "Suarez", "Fernando", LocalDate.of(1982,Month.FEBRUARY,27), true);
         
-        //AlumnoData operacionesAlumnos = new AlumnoData();
-       // operacionesAlumnos.agregarAlumno(fernando);
+        /*AlumnoData operacionesAlumnos = new AlumnoData();
+       operacionesAlumnos.agregarAlumno(fernando);
         MateriaData materiaData = new MateriaData();
         Materia materia = new Materia("Matematica", 2024, false);
         Materia materia2 = new Materia("Matematica", 2025, false);
+        materiaData.agregarMateria(materia); */
+        Inscripcion ins = new Inscripcion(2, 3,4);
+        
+        InscripcionData datain = new InscripcionData();
+        datain.agregarInscripcion(ins);
         //materiaData.agregarMateria(materia);
        // operacionesAlumnos.altaLogica(fernando);
        //materiaData.altaLogica(materia);
