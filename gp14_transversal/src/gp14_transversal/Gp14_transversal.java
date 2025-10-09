@@ -35,7 +35,7 @@ public class Gp14_transversal {
         Inscripcion ins = new Inscripcion(2, 3,4);
         
         InscripcionData datain = new InscripcionData();
-        datain.agregarInscripcion(ins);
+        //datain.agregarInscripcion(ins);
         //materiaData.agregarMateria(materia);
        // operacionesAlumnos.altaLogica(fernando);
        //materiaData.altaLogica(materia);

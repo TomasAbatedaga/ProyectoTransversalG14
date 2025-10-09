@@ -4,13 +4,13 @@ package Vista;
 import javax.swing.table.DefaultTableModel;
 
 public class VistaAlumnos extends javax.swing.JInternalFrame {
-    private DefaultTableModel modeloT = new DefaultTableModel();
+    //private DefaultTableModel modeloT = new DefaultTableModel();
     /**
      * Creates new form VistaAlumnos
      */
     public VistaAlumnos() {
         initComponents();
-        armarCabecera();
+        //armarCabecera();
     }
 
     /**
@@ -23,35 +23,34 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         lbl_titulo = new javax.swing.JLabel();
-        lbl_id_alumnos = new javax.swing.JLabel();
+        lbl_documento = new javax.swing.JLabel();
+        lbl_apellido = new javax.swing.JLabel();
         lbl_nombre = new javax.swing.JLabel();
-        lbl_fecha = new javax.swing.JLabel();
-        lbl_activo = new javax.swing.JLabel();
         lbl_estado = new javax.swing.JLabel();
         btn_buscar = new javax.swing.JButton();
         btn_guardar = new javax.swing.JButton();
         btn_borrar = new javax.swing.JButton();
         btn_actualizar = new javax.swing.JButton();
         btn_limpiar = new javax.swing.JButton();
-        txt_id_alumnos = new javax.swing.JTextField();
+        txt_documento = new javax.swing.JTextField();
+        txt_apellido = new javax.swing.JTextField();
         txt_nombre = new javax.swing.JTextField();
+        cb_estado = new javax.swing.JCheckBox();
+        lbl_fecha = new javax.swing.JLabel();
         txt_fecha = new javax.swing.JTextField();
-        cb_activo = new javax.swing.JCheckBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_alumnos = new javax.swing.JTable();
+
+        setClosable(true);
 
         lbl_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_titulo.setText("ALUMNOS");
+        lbl_titulo.setText("ALUMNO");
 
-        lbl_id_alumnos.setText("ID:");
+        lbl_documento.setText("Documento:");
 
-        lbl_nombre.setText("Nombre :");
+        lbl_apellido.setText("Apellido :");
 
-        lbl_fecha.setText("Fecha Nac :");
+        lbl_nombre.setText("Nombre:");
 
-        lbl_activo.setText("Activo");
-
-        lbl_estado.setText("Estado :");
+        lbl_estado.setText("Estado");
 
         btn_buscar.setText("Buscar");
 
@@ -63,96 +62,89 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
 
         btn_limpiar.setText("Limpiar");
 
-        tbl_alumnos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tbl_alumnos);
+        lbl_fecha.setText("Fecha de Nacimiento:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbl_estado)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbl_nombre)
-                    .addComponent(lbl_id_alumnos)
-                    .addComponent(lbl_fecha)
-                    .addComponent(lbl_activo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cb_activo))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lbl_fecha))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btn_guardar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                                .addComponent(btn_borrar)
-                                .addGap(31, 31, 31)
-                                .addComponent(btn_actualizar)
-                                .addGap(29, 29, 29)
-                                .addComponent(btn_limpiar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(txt_id_alumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btn_guardar)
+                                    .addComponent(lbl_nombre))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_borrar)
+                        .addGap(169, 169, 169)
+                        .addComponent(btn_limpiar)
+                        .addGap(23, 23, 23))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btn_actualizar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_estado)
+                                    .addComponent(lbl_apellido)
+                                    .addComponent(lbl_documento))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_buscar))
-                            .addComponent(txt_nombre, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(26, 26, 26))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(cb_estado)
+                                        .addComponent(txt_apellido)
+                                        .addComponent(txt_documento, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(66, 66, 66)
+                        .addComponent(btn_buscar)))
+                .addContainerGap(18, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(226, 226, 226))
+                .addGap(228, 228, 228))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_documento)
+                    .addComponent(txt_documento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_buscar))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_id_alumnos)
-                    .addComponent(btn_buscar)
-                    .addComponent(txt_id_alumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(lbl_apellido)
+                    .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_nombre)
                     .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_fecha)
-                    .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl_estado, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cb_estado, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_activo)
-                    .addComponent(cb_activo))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                    .addComponent(lbl_fecha)
+                    .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_guardar)
                     .addComponent(btn_borrar)
                     .addComponent(btn_actualizar)
                     .addComponent(btn_limpiar))
-                .addGap(18, 18, 18)
-                .addComponent(lbl_estado)
-                .addGap(17, 17, 17))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         pack();
@@ -165,20 +157,19 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_limpiar;
-    private javax.swing.JCheckBox cb_activo;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbl_activo;
+    private javax.swing.JCheckBox cb_estado;
+    private javax.swing.JLabel lbl_apellido;
+    private javax.swing.JLabel lbl_documento;
     private javax.swing.JLabel lbl_estado;
     private javax.swing.JLabel lbl_fecha;
-    private javax.swing.JLabel lbl_id_alumnos;
     private javax.swing.JLabel lbl_nombre;
     private javax.swing.JLabel lbl_titulo;
-    private javax.swing.JTable tbl_alumnos;
+    private javax.swing.JTextField txt_apellido;
+    private javax.swing.JTextField txt_documento;
     private javax.swing.JTextField txt_fecha;
-    private javax.swing.JTextField txt_id_alumnos;
     private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
-
+/*
 private void armarCabecera(){
 modeloT.addColumn("DNI");
 modeloT.addColumn("Apellido");
@@ -187,4 +178,5 @@ modeloT.addColumn("Fecha Nacimiento");
 modeloT.addColumn("Estado");
 tbl_alumnos.setModel(modeloT);
 }
+*/
 }

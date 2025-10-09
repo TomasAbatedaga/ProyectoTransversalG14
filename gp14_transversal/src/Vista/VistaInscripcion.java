@@ -1,20 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Vista;
 
-/**
- *
- * @author USURIO
- */
+import Modelo.Alumno;
+import javax.swing.table.DefaultTableModel;
+
 public class VistaInscripcion extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form VistaInscripcion
-     */
+    private DefaultTableModel modeloInscripcion = new DefaultTableModel();
+    
     public VistaInscripcion() {
         initComponents();
+        armarCabecera();
     }
 
     /**
@@ -26,15 +21,100 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lbl_titulo = new javax.swing.JLabel();
+        lbl_seleccion = new javax.swing.JLabel();
+        lbl_listado = new javax.swing.JLabel();
+        radioBtn_inscriptas = new javax.swing.JRadioButton();
+        radioBtn_noInscriptas = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_inscripcion = new javax.swing.JTable();
+        btn_inscribir = new javax.swing.JButton();
+        btn_anular = new javax.swing.JButton();
+        cbx_seleccion = new javax.swing.JComboBox<>();
+
+        setClosable(true);
+
+        lbl_titulo.setText("Formulario de Inscripción");
+
+        lbl_seleccion.setText("Seleccione un alumno :");
+
+        lbl_listado.setText("Listado de Materias");
+
+        radioBtn_inscriptas.setText("Materias Inscriptas");
+
+        radioBtn_noInscriptas.setText("Materias no Inscriptas");
+
+        tbl_inscripcion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tbl_inscripcion);
+
+        btn_inscribir.setText("Inscribir");
+
+        btn_anular.setText("Anular");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(radioBtn_inscriptas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(radioBtn_noInscriptas))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btn_inscribir)
+                                .addGap(110, 110, 110)
+                                .addComponent(btn_anular)
+                                .addGap(121, 121, 121))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(307, 307, 307)
+                        .addComponent(lbl_listado))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(lbl_seleccion)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbx_seleccion, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(292, 292, 292)
+                        .addComponent(lbl_titulo)))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lbl_titulo)
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_seleccion, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbx_seleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(lbl_listado, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioBtn_inscriptas)
+                    .addComponent(radioBtn_noInscriptas))
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_inscribir)
+                    .addComponent(btn_anular))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -42,5 +122,24 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_anular;
+    private javax.swing.JButton btn_inscribir;
+    private javax.swing.JComboBox<Alumno> cbx_seleccion;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_listado;
+    private javax.swing.JLabel lbl_seleccion;
+    private javax.swing.JLabel lbl_titulo;
+    private javax.swing.JRadioButton radioBtn_inscriptas;
+    private javax.swing.JRadioButton radioBtn_noInscriptas;
+    private javax.swing.JTable tbl_inscripcion;
     // End of variables declaration//GEN-END:variables
+private void armarCabecera() {
+        modeloInscripcion.addColumn("ID");
+        modeloInscripcion.addColumn("Nombre");
+        modeloInscripcion.addColumn("Año");
+        tbl_inscripcion.setModel(modeloInscripcion);
+    }
+private void cargarCombo(){
+    
+}
 }

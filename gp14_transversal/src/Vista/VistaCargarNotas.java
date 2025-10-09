@@ -1,20 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Vista;
 
-/**
- *
- * @author USURIO
- */
+import Modelo.Alumno;
+import javax.swing.table.DefaultTableModel;
+
 public class VistaCargarNotas extends javax.swing.JInternalFrame {
+
+    private DefaultTableModel modeloNotas = new DefaultTableModel();
 
     /**
      * Creates new form VistaCargarNotas
      */
     public VistaCargarNotas() {
         initComponents();
+        armarCabecera();
     }
 
     /**
@@ -26,15 +24,68 @@ public class VistaCargarNotas extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lbl_titulo = new javax.swing.JLabel();
+        lbl_seleccion = new javax.swing.JLabel();
+        cbx_seleccion = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_notas = new javax.swing.JTable();
+        btn_guardar = new javax.swing.JButton();
+
+        setClosable(true);
+
+        lbl_titulo.setText("Carga de Notas");
+
+        lbl_seleccion.setText("Seleccione un Alumno :");
+
+        tbl_notas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tbl_notas);
+
+        btn_guardar.setText("Guardar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbl_seleccion)
+                        .addGap(60, 60, 60)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_titulo)
+                            .addComponent(cbx_seleccion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(41, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_guardar)
+                .addGap(60, 60, 60))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbl_titulo)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_seleccion)
+                    .addComponent(cbx_seleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(btn_guardar)
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -42,5 +93,17 @@ public class VistaCargarNotas extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_guardar;
+    private javax.swing.JComboBox<Alumno> cbx_seleccion;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_seleccion;
+    private javax.swing.JLabel lbl_titulo;
+    private javax.swing.JTable tbl_notas;
     // End of variables declaration//GEN-END:variables
+private void armarCabecera() {
+        modeloNotas.addColumn("ID");
+        modeloNotas.addColumn("Nombre");
+        modeloNotas.addColumn("Nota");
+        tbl_notas.setModel(modeloNotas);
+    }
 }

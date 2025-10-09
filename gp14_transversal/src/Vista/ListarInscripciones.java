@@ -1,20 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Vista;
 
-/**
- *
- * @author USURIO
- */
+import Modelo.Materia;
+import javax.swing.table.DefaultTableModel;
+
 public class ListarInscripciones extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ListarInscripciones
-     */
+    private DefaultTableModel modeloLI = new DefaultTableModel();
+    
     public ListarInscripciones() {
         initComponents();
+        armarCabecera();
     }
 
     /**
@@ -26,15 +21,62 @@ public class ListarInscripciones extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lbl_titulo = new javax.swing.JLabel();
+        lbl_seleccion = new javax.swing.JLabel();
+        cbx_seleccion = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_lista_inscripciones = new javax.swing.JTable();
+
+        setClosable(true);
+
+        lbl_titulo.setText("Lista de Inscripciones");
+
+        lbl_seleccion.setText("Seleccione Materia :");
+
+        tbl_lista_inscripciones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tbl_lista_inscripciones);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 417, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(lbl_seleccion)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbx_seleccion, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(246, 246, 246)
+                        .addComponent(lbl_titulo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 412, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbl_titulo)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_seleccion)
+                    .addComponent(cbx_seleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         pack();
@@ -42,5 +84,17 @@ public class ListarInscripciones extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Materia> cbx_seleccion;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_seleccion;
+    private javax.swing.JLabel lbl_titulo;
+    private javax.swing.JTable tbl_lista_inscripciones;
     // End of variables declaration//GEN-END:variables
+private void armarCabecera() {
+        modeloLI.addColumn("ID");
+        modeloLI.addColumn("DNI");
+        modeloLI.addColumn("Apellido");
+        modeloLI.addColumn("Nombre");
+        tbl_lista_inscripciones.setModel(modeloLI);
+    }
 }

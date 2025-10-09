@@ -30,7 +30,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         menu_alumnos = new javax.swing.JMenu();
+        mit_alumno = new javax.swing.JMenuItem();
         menu_materias = new javax.swing.JMenu();
+        mit_materia = new javax.swing.JMenuItem();
+        menu_inscripcion = new javax.swing.JMenu();
+        mit_inscripcion = new javax.swing.JMenuItem();
+        mit_notas = new javax.swing.JMenuItem();
+        mit_inscriptos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -38,28 +44,64 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 830, Short.MAX_VALUE)
+            .addGap(0, 818, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 664, Short.MAX_VALUE)
         );
 
-        menu_alumnos.setText("Alumnos");
-        menu_alumnos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menu_alumnosMouseClicked(evt);
+        menu_alumnos.setText("Alumno");
+
+        mit_alumno.setText("Gestion Alumno");
+        mit_alumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mit_alumnoActionPerformed(evt);
             }
         });
+        menu_alumnos.add(mit_alumno);
+
         jMenuBar1.add(menu_alumnos);
 
-        menu_materias.setText("Materias");
-        menu_materias.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menu_materiasMouseClicked(evt);
+        menu_materias.setText("Materia");
+
+        mit_materia.setText("Gestion Materia");
+        mit_materia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mit_materiaActionPerformed(evt);
             }
         });
+        menu_materias.add(mit_materia);
+
         jMenuBar1.add(menu_materias);
+
+        menu_inscripcion.setText("Inscripcion");
+
+        mit_inscripcion.setText("Gestion Inscripcion");
+        mit_inscripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mit_inscripcionActionPerformed(evt);
+            }
+        });
+        menu_inscripcion.add(mit_inscripcion);
+
+        mit_notas.setText("Cargar Notas");
+        mit_notas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mit_notasActionPerformed(evt);
+            }
+        });
+        menu_inscripcion.add(mit_notas);
+
+        mit_inscriptos.setText("Listar Inscriptos");
+        mit_inscriptos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mit_inscriptosActionPerformed(evt);
+            }
+        });
+        menu_inscripcion.add(mit_inscriptos);
+
+        jMenuBar1.add(menu_inscripcion);
 
         setJMenuBar(jMenuBar1);
 
@@ -67,7 +109,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(escritorio)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,7 +123,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menu_alumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_alumnosMouseClicked
+    private void mit_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mit_alumnoActionPerformed
         // TODO add your handling code here:
         escritorio.removeAll();
         escritorio.repaint();
@@ -86,9 +131,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         vistaAlumnos.setVisible(true);
         escritorio.add(vistaAlumnos);
         escritorio.moveToFront(vistaAlumnos);
-    }//GEN-LAST:event_menu_alumnosMouseClicked
+    }//GEN-LAST:event_mit_alumnoActionPerformed
 
-    private void menu_materiasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_materiasMouseClicked
+    private void mit_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mit_materiaActionPerformed
         // TODO add your handling code here:
         escritorio.removeAll();
         escritorio.repaint();
@@ -96,7 +141,37 @@ public class MenuPrincipal extends javax.swing.JFrame {
         vistaMaterias.setVisible(true);
         escritorio.add(vistaMaterias);
         escritorio.moveToFront(vistaMaterias);
-    }//GEN-LAST:event_menu_materiasMouseClicked
+    }//GEN-LAST:event_mit_materiaActionPerformed
+
+    private void mit_inscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mit_inscripcionActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaInscripcion vistaInscripcion = new VistaInscripcion();
+        vistaInscripcion.setVisible(true);
+        escritorio.add(vistaInscripcion);
+        escritorio.moveToFront(vistaInscripcion);
+    }//GEN-LAST:event_mit_inscripcionActionPerformed
+
+    private void mit_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mit_notasActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaCargarNotas vistaCargarNotas = new VistaCargarNotas();
+        vistaCargarNotas.setVisible(true);
+        escritorio.add(vistaCargarNotas);
+        escritorio.moveToFront(vistaCargarNotas);
+    }//GEN-LAST:event_mit_notasActionPerformed
+
+    private void mit_inscriptosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mit_inscriptosActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        ListarInscripciones listarInscripciones = new ListarInscripciones();
+        listarInscripciones.setVisible(true);
+        escritorio.add(listarInscripciones);
+        escritorio.moveToFront(listarInscripciones);
+    }//GEN-LAST:event_mit_inscriptosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,6 +212,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu menu_alumnos;
+    private javax.swing.JMenu menu_inscripcion;
     private javax.swing.JMenu menu_materias;
+    private javax.swing.JMenuItem mit_alumno;
+    private javax.swing.JMenuItem mit_inscripcion;
+    private javax.swing.JMenuItem mit_inscriptos;
+    private javax.swing.JMenuItem mit_materia;
+    private javax.swing.JMenuItem mit_notas;
     // End of variables declaration//GEN-END:variables
 }

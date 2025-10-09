@@ -6,18 +6,15 @@ package Vista;
 
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author jorge
- */
+
 public class VistaMaterias extends javax.swing.JInternalFrame {
-private DefaultTableModel modeloMateria = new DefaultTableModel();
+//private DefaultTableModel modeloMateria = new DefaultTableModel();
     /**
      * Creates new form VistaMaterias
      */
     public VistaMaterias() {
         initComponents();
-        armarCabecera();
+     //   armarCabecera();
     }
 
     /**
@@ -39,11 +36,15 @@ private DefaultTableModel modeloMateria = new DefaultTableModel();
         btn_limpiar = new javax.swing.JButton();
         txt_id_materias = new javax.swing.JTextField();
         txt_nombre = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_materias = new javax.swing.JTable();
+        lbl_anio = new javax.swing.JLabel();
+        lbl_estado = new javax.swing.JLabel();
+        txt_anio = new javax.swing.JTextField();
+        cb_estado = new javax.swing.JCheckBox();
+
+        setClosable(true);
 
         lbl_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_titulo.setText("MATERIAS");
+        lbl_titulo.setText("MATERIA");
 
         lbl_id_materias.setText("ID:");
 
@@ -59,76 +60,75 @@ private DefaultTableModel modeloMateria = new DefaultTableModel();
 
         btn_limpiar.setText("Limpiar");
 
-        tbl_materias.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tbl_materias);
+        lbl_anio.setText("Año :");
+
+        lbl_estado.setText("Estado :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbl_nombre)
-                    .addComponent(lbl_id_materias))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(71, 71, 71)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_nombre)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btn_guardar)
+                        .addGap(29, 29, 29)
+                        .addComponent(btn_borrar)
+                        .addGap(27, 27, 27)
+                        .addComponent(btn_actualizar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_limpiar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_nombre)
+                            .addComponent(lbl_anio)
+                            .addComponent(lbl_estado)
+                            .addComponent(lbl_id_materias))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(txt_id_materias, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(58, 58, 58)
                                 .addComponent(btn_buscar))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btn_guardar)
-                                .addGap(29, 29, 29)
-                                .addComponent(btn_borrar)
-                                .addGap(51, 51, 51)
-                                .addComponent(btn_actualizar)
-                                .addGap(55, 55, 55)
-                                .addComponent(btn_limpiar)))))
-                .addGap(45, 45, 45))
+                            .addComponent(cb_estado)
+                            .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_anio, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(56, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(243, 243, 243))
+                .addGap(202, 202, 202))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addComponent(lbl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_id_materias)
                     .addComponent(btn_buscar)
                     .addComponent(txt_id_materias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_nombre)
                     .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_anio)
+                    .addComponent(txt_anio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cb_estado)
+                    .addComponent(lbl_estado))
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_guardar)
                     .addComponent(btn_borrar)
                     .addComponent(btn_actualizar)
                     .addComponent(btn_limpiar))
-                .addGap(16, 16, 16))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
@@ -141,19 +141,23 @@ private DefaultTableModel modeloMateria = new DefaultTableModel();
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_limpiar;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JCheckBox cb_estado;
+    private javax.swing.JLabel lbl_anio;
+    private javax.swing.JLabel lbl_estado;
     private javax.swing.JLabel lbl_id_materias;
     private javax.swing.JLabel lbl_nombre;
     private javax.swing.JLabel lbl_titulo;
-    private javax.swing.JTable tbl_materias;
+    private javax.swing.JTextField txt_anio;
     private javax.swing.JTextField txt_id_materias;
     private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
-private void armarCabecera(){
+/*
+    private void armarCabecera(){
 modeloMateria.addColumn("ID");
 modeloMateria.addColumn("Nombre");
 modeloMateria.addColumn("Año");
 modeloMateria.addColumn("Estado");
 tbl_materias.setModel(modeloMateria);
 }
+*/
 }
