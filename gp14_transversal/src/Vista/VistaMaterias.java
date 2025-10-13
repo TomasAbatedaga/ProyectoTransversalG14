@@ -4,7 +4,9 @@
  */
 package Vista;
 
-import javax.swing.table.DefaultTableModel;
+import Modelo.Materia;
+import Persistencia.MateriaData;
+
 
 
 public class VistaMaterias extends javax.swing.JInternalFrame {
@@ -51,14 +53,39 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
         lbl_nombre.setText("Nombre :");
 
         btn_buscar.setText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
 
         btn_guardar.setText("Guardar");
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarActionPerformed(evt);
+            }
+        });
 
         btn_borrar.setText("Borrar");
+        btn_borrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_borrarActionPerformed(evt);
+            }
+        });
 
         btn_actualizar.setText("Actualizar");
+        btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarActionPerformed(evt);
+            }
+        });
 
         btn_limpiar.setText("Limpiar");
+        btn_limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_limpiarActionPerformed(evt);
+            }
+        });
 
         lbl_anio.setText("Año :");
 
@@ -115,9 +142,9 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
                     .addComponent(lbl_nombre)
                     .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_anio)
-                    .addComponent(txt_anio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_anio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_anio))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cb_estado)
@@ -133,6 +160,57 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        // TODO add your handling code here:
+                MateriaData materiaData = new MateriaData();
+        int id = Integer.parseInt(txt_id_materias.getText());
+        Materia materia = materiaData.buscarMateriaPorId(id);
+        System.out.println(id);
+        if(materia != null){
+            txt_nombre.setText(materia.getNombre());
+            txt_anio.setText(materia.getAnio()+"");
+            cb_estado.setSelected(true);
+        }
+    }//GEN-LAST:event_btn_buscarActionPerformed
+
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+        // TODO add your handling code here:
+         MateriaData materiaData = new MateriaData();
+
+        String nombre = txt_nombre.getText();
+        int anio = Integer.parseInt(txt_anio.getText());
+        boolean estado = cb_estado.isSelected();
+        Materia materia = new Materia(nombre, anio, estado);
+        materiaData.agregarMateria(materia);
+    }//GEN-LAST:event_btn_guardarActionPerformed
+
+    private void btn_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_borrarActionPerformed
+        // TODO add your handling code here:
+         MateriaData materiaData = new MateriaData();
+        int id = Integer.parseInt(txt_id_materias.getText());
+        materiaData.eliminarMateria(id);
+    }//GEN-LAST:event_btn_borrarActionPerformed
+
+    private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
+        // TODO add your handling code here:
+         MateriaData materiaData = new MateriaData();
+         int id = Integer.parseInt(txt_id_materias.getText());
+        String nombre = txt_nombre.getText();
+        int anio = Integer.parseInt(txt_anio.getText());
+        boolean estado = cb_estado.isSelected();
+        Materia materia = new Materia(nombre, anio, estado);
+        materia.setId_materia(id);
+        materiaData.actualizarMateria(materia);
+    }//GEN-LAST:event_btn_actualizarActionPerformed
+
+    private void btn_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarActionPerformed
+        // TODO add your handling code here:
+                txt_id_materias.setText("");
+        txt_nombre.setText("");
+        cb_estado.setSelected(false);
+        txt_anio.setText("");
+    }//GEN-LAST:event_btn_limpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -151,13 +229,5 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_id_materias;
     private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
-/*
-    private void armarCabecera(){
-modeloMateria.addColumn("ID");
-modeloMateria.addColumn("Nombre");
-modeloMateria.addColumn("Año");
-modeloMateria.addColumn("Estado");
-tbl_materias.setModel(modeloMateria);
-}
-*/
+
 }

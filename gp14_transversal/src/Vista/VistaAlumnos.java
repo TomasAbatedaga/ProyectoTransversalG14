@@ -1,16 +1,15 @@
-
 package Vista;
 
-import javax.swing.table.DefaultTableModel;
+import Modelo.Alumno;
+import Persistencia.AlumnoData;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 public class VistaAlumnos extends javax.swing.JInternalFrame {
-    //private DefaultTableModel modeloT = new DefaultTableModel();
-    /**
-     * Creates new form VistaAlumnos
-     */
+
     public VistaAlumnos() {
         initComponents();
-        //armarCabecera();
     }
 
     /**
@@ -53,14 +52,39 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         lbl_estado.setText("Estado");
 
         btn_buscar.setText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
 
         btn_guardar.setText("Guardar");
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarActionPerformed(evt);
+            }
+        });
 
         btn_borrar.setText("Borrar");
+        btn_borrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_borrarActionPerformed(evt);
+            }
+        });
 
         btn_actualizar.setText("Actualizar");
+        btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarActionPerformed(evt);
+            }
+        });
 
         btn_limpiar.setText("Limpiar");
+        btn_limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_limpiarActionPerformed(evt);
+            }
+        });
 
         lbl_fecha.setText("Fecha de Nacimiento:");
 
@@ -127,8 +151,8 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
                     .addComponent(lbl_apellido)
                     .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_nombre)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_nombre, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,6 +174,66 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        // TODO add your handling code here:
+        AlumnoData alumnoData = new AlumnoData();
+        int documento = Integer.parseInt(txt_documento.getText());
+        Alumno alumno = alumnoData.buscarAlumno(documento);
+        if(alumno != null){
+            txt_apellido.setText(alumno.getApellido());
+            txt_nombre.setText(alumno.getNombre());
+            cb_estado.setSelected(true);
+            txt_fecha.setText(alumno.getFecha_nacimiento().toString());
+        
+        }
+        
+
+    }//GEN-LAST:event_btn_buscarActionPerformed
+
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+        // TODO add your handling code here:
+        AlumnoData alumnoData = new AlumnoData();
+        int dni = Integer.parseInt(txt_documento.getText());
+        String apellido = txt_apellido.getText();
+        String nombre = txt_nombre.getText();
+        String fecha = txt_fecha.getText();
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate fechaFormateada = LocalDate.parse(fecha, formatoFecha);
+        boolean estado = cb_estado.isSelected();
+        Alumno alumno = new Alumno(dni, apellido, nombre, fechaFormateada, estado);
+        alumnoData.agregarAlumno(alumno);
+    }//GEN-LAST:event_btn_guardarActionPerformed
+
+    private void btn_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_borrarActionPerformed
+        // TODO add your handling code here:
+        AlumnoData alumnoData = new AlumnoData();
+        int documento = Integer.parseInt(txt_documento.getText());
+        alumnoData.eliminarAlumno(documento);
+    }//GEN-LAST:event_btn_borrarActionPerformed
+
+    private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
+        // TODO add your handling code here:
+        AlumnoData alumnoData = new AlumnoData();
+        int dni = Integer.parseInt(txt_documento.getText());
+        String apellido = txt_apellido.getText();
+        String nombre = txt_nombre.getText();
+        String fecha = txt_fecha.getText();
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate fechaFormateada = LocalDate.parse(fecha, formatoFecha);
+        boolean estado = cb_estado.isSelected();
+        Alumno alumno = new Alumno(dni, apellido, nombre, fechaFormateada, estado);
+        alumnoData.actualizarAlumno(alumno);
+    }//GEN-LAST:event_btn_actualizarActionPerformed
+
+    private void btn_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarActionPerformed
+        // TODO add your handling code here:
+        txt_documento.setText("");
+        txt_apellido.setText("");
+        txt_nombre.setText("");
+        cb_estado.setSelected(false);
+        txt_fecha.setText("");
+    }//GEN-LAST:event_btn_limpiarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_actualizar;
@@ -169,14 +253,5 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_fecha;
     private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
-/*
-private void armarCabecera(){
-modeloT.addColumn("DNI");
-modeloT.addColumn("Apellido");
-modeloT.addColumn("Nombre");    
-modeloT.addColumn("Fecha Nacimiento");
-modeloT.addColumn("Estado");
-tbl_alumnos.setModel(modeloT);
-}
-*/
+
 }

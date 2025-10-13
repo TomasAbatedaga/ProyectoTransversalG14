@@ -29,8 +29,7 @@ public class AlumnoData {
             ps.setString(3, a.getNombre());
             ps.setDate(4, Date.valueOf(a.getFecha_nacimiento()));
             ps.setBoolean(5, a.isEstado());
-            int registros = ps.executeUpdate();
-            System.out.println(registros);
+            ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if(rs.next()){
                 a.setId_alumno(rs.getInt(1));
@@ -84,7 +83,7 @@ public class AlumnoData {
                 a.setFecha_nacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
                 a.setEstado(rs.getBoolean("estado"));
             }
-            System.out.println(a.toString());
+          //  System.out.println(a.toString());
         } catch (SQLException ex) {
             System.out.println("No existe ese dni" + ex);
         }

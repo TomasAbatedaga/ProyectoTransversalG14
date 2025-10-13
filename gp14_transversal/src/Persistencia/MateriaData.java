@@ -4,10 +4,8 @@
  */
 package Persistencia;
 
-import Modelo.Alumno;
 import Modelo.Materia;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -80,7 +78,7 @@ public class MateriaData {
             ps = con.prepareStatement(sql);
             ps.setString(1, m.getNombre());
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 m = new Materia();
                 m.setId_materia(rs.getInt("id_materia"));
                 m.setNombre(rs.getString("nombre"));
@@ -100,9 +98,9 @@ public class MateriaData {
         PreparedStatement ps;
         try{
             ps = con.prepareStatement(sql);
-            ps.setInt(1, m.getId_materia());
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 m = new Materia();
                 m.setId_materia(rs.getInt("id_materia"));
                 m.setNombre(rs.getString("nombre"));
@@ -113,18 +111,21 @@ public class MateriaData {
         } catch (SQLException ex) {
             System.out.println("No existe esa materia" + ex);
         }
+        System.out.println(m);
         return m;
     }
     
     public void actualizarMateria (Materia m){
         
-        String sql = "UPDATE materia SET nombre=?, anio=?, estado=? WHERE nombre=?";
+        String sql = "UPDATE materia SET nombre=?, anio=?, estado=? WHERE id_materia=?";
         
         try{
            PreparedStatement ps = con.prepareStatement(sql);
            ps.setString(1, m.getNombre());
            ps.setInt(2, m.getAnio());
            ps.setBoolean(3, m.isEstado());
+           ps.setInt(4,m.getId_materia());
+            System.out.println(m.getId_materia());
            ps.executeUpdate();
            ps.close();
            System.out.println("Materia actualizada correctamente");
