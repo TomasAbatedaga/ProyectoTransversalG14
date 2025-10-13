@@ -152,7 +152,7 @@ public class MateriaData {
     public void altaLogica(Materia m){
         
         String sql = "UPDATE materia SET estado=1 WHERE id_materia=?";
-        
+        //
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, m.getId_materia());
