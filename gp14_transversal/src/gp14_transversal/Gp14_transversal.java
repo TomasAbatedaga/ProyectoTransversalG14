@@ -32,7 +32,7 @@ public class Gp14_transversal {
         Materia materia = new Materia("Matematica", 2024, false);
         Materia materia2 = new Materia("Matematica", 2025, false);
         materiaData.agregarMateria(materia); */
-        Inscripcion ins = new Inscripcion(2, 3,4);
+        
         
         InscripcionData datain = new InscripcionData();
         //datain.agregarInscripcion(ins);
