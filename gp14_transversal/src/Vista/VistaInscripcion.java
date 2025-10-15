@@ -185,7 +185,7 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
     private void jrdNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrdNoInscriptasActionPerformed
         // TODO add your handling code here:
         borrarFilas();
-        cargarDatosInscriptos();
+        cargarDatosNoInscriptos();
         jbInscribir.setEnabled(true);
         jbAnular.setEnabled(false);
     }//GEN-LAST:event_jrdNoInscriptasActionPerformed
@@ -204,7 +204,7 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
             abmInscripcion.agregarInscripcion(i);
             borrarFilas();
         } else {
-            JOptionPane.showConfirmDialog(this, "Debe seleccionar una fila de la tabla");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una fila de la tabla");
         }
     }//GEN-LAST:event_jbInscribirActionPerformed
 
@@ -217,7 +217,7 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
             abmInscripcion.borrarInscripcionMateriaAlumno(a.getId_alumno(), idMateria);
             borrarFilas();
         } else {
-            JOptionPane.showConfirmDialog(this, "Debe seleccionar una fila de la tabla");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una fila de la tabla");
         }
     }//GEN-LAST:event_jbAnularActionPerformed
 
