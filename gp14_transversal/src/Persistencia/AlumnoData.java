@@ -2,12 +2,11 @@
 package Persistencia;
 
 import Modelo.Alumno;
-import java.time.Month;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 
 
 public class AlumnoData {
@@ -33,10 +32,11 @@ public class AlumnoData {
             ResultSet rs = ps.getGeneratedKeys();
             if(rs.next()){
                 a.setId_alumno(rs.getInt(1));
-                System.out.println("Alta Exitosa");
-            } else{
-                System.out.println("No se pudo obtener el id");
+                JOptionPane.showMessageDialog(null, "Alumno ingresado con exito");
             }
+        }catch(SQLIntegrityConstraintViolationException ex){
+            JOptionPane.showMessageDialog(null, "El documento ingresado ya existe");
+            
         } catch (SQLException ex) {
             System.out.println("Error de conexion: " + ex);
         }    
@@ -83,7 +83,6 @@ public class AlumnoData {
                 a.setFecha_nacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
                 a.setEstado(rs.getBoolean("estado"));
             }
-          //  System.out.println(a.toString());
         } catch (SQLException ex) {
             System.out.println("No existe ese dni" + ex);
         }
@@ -104,7 +103,7 @@ public class AlumnoData {
             ps.setInt(5, a.getDni());
             ps.executeUpdate();
             ps.close();
-            System.out.println("Alumno actualizado correctamente");
+            JOptionPane.showMessageDialog(null,"Alumno Actualizado con exito");
         } catch (SQLException ex) {
             System.out.println("Error de actualizacion " + ex);
         }
@@ -119,7 +118,7 @@ public class AlumnoData {
             ps.setInt(1, dni);
             ps.executeUpdate();
             ps.close();
-            System.out.println("Alumno eliminado exitosamente");
+             JOptionPane.showMessageDialog(null, "Alumno eliminado con exito");
         } catch (SQLException ex) {
             System.out.println("Error al borrar alumno" + ex);
         }

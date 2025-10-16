@@ -6,17 +6,15 @@ package Vista;
 
 import Modelo.Materia;
 import Persistencia.MateriaData;
-
-
+import javax.swing.JOptionPane;
 
 public class VistaMaterias extends javax.swing.JInternalFrame {
-//private DefaultTableModel modeloMateria = new DefaultTableModel();
+
     /**
      * Creates new form VistaMaterias
      */
     public VistaMaterias() {
         initComponents();
-     //   armarCabecera();
     }
 
     /**
@@ -163,50 +161,75 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
-                MateriaData materiaData = new MateriaData();
-        int id = Integer.parseInt(txt_id_materias.getText());
-        Materia materia = materiaData.buscarMateriaPorId(id);
-        System.out.println(id);
-        if(materia != null){
-            txt_nombre.setText(materia.getNombre());
-            txt_anio.setText(materia.getAnio()+"");
-            cb_estado.setSelected(true);
+        try {
+            MateriaData materiaData = new MateriaData();
+            int id = Integer.parseInt(txt_id_materias.getText());
+            Materia materia = materiaData.buscarMateriaPorId(id);
+            if (materia != null) {
+                txt_nombre.setText(materia.getNombre());
+                txt_anio.setText(materia.getAnio() + "");
+                cb_estado.setSelected(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encuentra el ID ingresado");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un numero valido en el campo ID");
         }
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
-         MateriaData materiaData = new MateriaData();
-
-        String nombre = txt_nombre.getText();
-        int anio = Integer.parseInt(txt_anio.getText());
-        boolean estado = cb_estado.isSelected();
-        Materia materia = new Materia(nombre, anio, estado);
-        materiaData.agregarMateria(materia);
+        try {
+            MateriaData materiaData = new MateriaData();
+            String nombre = txt_nombre.getText();
+            int anio = Integer.parseInt(txt_anio.getText());
+            boolean estado = cb_estado.isSelected();
+            Materia materia = new Materia(nombre, anio, estado);
+            materiaData.agregarMateria(materia);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un numero valido en el campo Año");
+        }
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_borrarActionPerformed
         // TODO add your handling code here:
-         MateriaData materiaData = new MateriaData();
-        int id = Integer.parseInt(txt_id_materias.getText());
-        materiaData.eliminarMateria(id);
+        try {
+            MateriaData materiaData = new MateriaData();
+            int id = Integer.parseInt(txt_id_materias.getText());
+            if (materiaData.buscarMateriaPorId(id) != null) {
+                materiaData.eliminarMateria(id);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encuentra el ID ingresado");
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Ingrese un numero valido en el campo ID");
+        }
     }//GEN-LAST:event_btn_borrarActionPerformed
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         // TODO add your handling code here:
-         MateriaData materiaData = new MateriaData();
-         int id = Integer.parseInt(txt_id_materias.getText());
-        String nombre = txt_nombre.getText();
-        int anio = Integer.parseInt(txt_anio.getText());
-        boolean estado = cb_estado.isSelected();
-        Materia materia = new Materia(nombre, anio, estado);
-        materia.setId_materia(id);
-        materiaData.actualizarMateria(materia);
+        try {
+            MateriaData materiaData = new MateriaData();
+            int id = Integer.parseInt(txt_id_materias.getText());
+            if (materiaData.buscarMateriaPorId(id) != null) {
+                String nombre = txt_nombre.getText();
+                int anio = Integer.parseInt(txt_anio.getText());
+                boolean estado = cb_estado.isSelected();
+                Materia materia = new Materia(nombre, anio, estado);
+                materia.setId_materia(id);
+                materiaData.actualizarMateria(materia);
+            }else{
+                JOptionPane.showMessageDialog(this,"No se encuentra el ID ingresado");
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Ingrese un numero valido");
+        }
+
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarActionPerformed
         // TODO add your handling code here:
-                txt_id_materias.setText("");
+        txt_id_materias.setText("");
         txt_nombre.setText("");
         cb_estado.setSelected(false);
         txt_anio.setText("");

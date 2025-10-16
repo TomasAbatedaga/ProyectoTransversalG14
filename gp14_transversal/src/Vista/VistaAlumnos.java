@@ -2,9 +2,13 @@ package Vista;
 
 import Modelo.Alumno;
 import Persistencia.AlumnoData;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-
+import java.time.format.DateTimeParseException;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class VistaAlumnos extends javax.swing.JInternalFrame {
 
@@ -36,7 +40,7 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         txt_nombre = new javax.swing.JTextField();
         cb_estado = new javax.swing.JCheckBox();
         lbl_fecha = new javax.swing.JLabel();
-        txt_fecha = new javax.swing.JTextField();
+        dc_fecha = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
 
@@ -88,6 +92,8 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
 
         lbl_fecha.setText("Fecha de Nacimiento:");
 
+        dc_fecha.setDateFormatString("dd-MM-yyyy");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,9 +107,7 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(lbl_fecha))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btn_guardar)
-                                    .addComponent(lbl_nombre))
+                                .addComponent(btn_guardar)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_borrar)
@@ -119,15 +123,15 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbl_estado)
                                     .addComponent(lbl_apellido)
-                                    .addComponent(lbl_documento))
+                                    .addComponent(lbl_documento)
+                                    .addComponent(lbl_nombre))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(cb_estado)
-                                        .addComponent(txt_apellido)
-                                        .addComponent(txt_documento, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cb_estado)
+                                    .addComponent(txt_apellido)
+                                    .addComponent(txt_documento, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                                    .addComponent(txt_nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                                    .addComponent(dc_fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(66, 66, 66)
                         .addComponent(btn_buscar)))
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -152,23 +156,23 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
                     .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_nombre, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_nombre)
                     .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_estado, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cb_estado, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lbl_fecha)
-                    .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
+                    .addComponent(dc_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_guardar)
                     .addComponent(btn_borrar)
                     .addComponent(btn_actualizar)
                     .addComponent(btn_limpiar))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         pack();
@@ -176,53 +180,82 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
-        AlumnoData alumnoData = new AlumnoData();
-        int documento = Integer.parseInt(txt_documento.getText());
-        Alumno alumno = alumnoData.buscarAlumno(documento);
-        if(alumno != null){
-            txt_apellido.setText(alumno.getApellido());
-            txt_nombre.setText(alumno.getNombre());
-            cb_estado.setSelected(true);
-            txt_fecha.setText(alumno.getFecha_nacimiento().toString());
-        
+         try {
+            AlumnoData alumnoData = new AlumnoData();
+            int documento = Integer.parseInt(txt_documento.getText());
+            Alumno alumno = alumnoData.buscarAlumno(documento);
+            if (alumno != null) {
+                txt_apellido.setText(alumno.getApellido());
+                txt_nombre.setText(alumno.getNombre());
+                cb_estado.setSelected(alumno.isEstado());      
+                Date fecha = Date.from(alumno.getFecha_nacimiento().atStartOfDay(ZoneId.systemDefault()).toInstant());
+                dc_fecha.setDate(fecha);     
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encuentra el documento ingresado");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un numero en el campo documento");
         }
-        
-
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
-        AlumnoData alumnoData = new AlumnoData();
-        int dni = Integer.parseInt(txt_documento.getText());
-        String apellido = txt_apellido.getText();
-        String nombre = txt_nombre.getText();
-        String fecha = txt_fecha.getText();
-        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate fechaFormateada = LocalDate.parse(fecha, formatoFecha);
-        boolean estado = cb_estado.isSelected();
-        Alumno alumno = new Alumno(dni, apellido, nombre, fechaFormateada, estado);
-        alumnoData.agregarAlumno(alumno);
+
+        try {
+            AlumnoData alumnoData = new AlumnoData();
+            int dni = Integer.parseInt(txt_documento.getText());
+            String apellido = txt_apellido.getText();
+            String nombre = txt_nombre.getText();
+            LocalDate fecha = dc_fecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            boolean estado = cb_estado.isSelected();
+            Alumno alumno = new Alumno(dni, apellido, nombre, fecha, estado);
+            alumnoData.agregarAlumno(alumno);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un numero valido en el campo dni");
+        } catch (DateTimeParseException ex) {
+            JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto");
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(this, "Completar el campo fecha");
+        }
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_borrarActionPerformed
         // TODO add your handling code here:
-        AlumnoData alumnoData = new AlumnoData();
-        int documento = Integer.parseInt(txt_documento.getText());
-        alumnoData.eliminarAlumno(documento);
+        try {
+            AlumnoData alumnoData = new AlumnoData();
+            int documento = Integer.parseInt(txt_documento.getText());
+            if (alumnoData.buscarAlumno(documento) != null) {
+                alumnoData.eliminarAlumno(documento);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encuentra el documento ingresado");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un numero valido en el campo dni");
+        }
+
     }//GEN-LAST:event_btn_borrarActionPerformed
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
-        // TODO add your handling code here:
-        AlumnoData alumnoData = new AlumnoData();
-        int dni = Integer.parseInt(txt_documento.getText());
-        String apellido = txt_apellido.getText();
-        String nombre = txt_nombre.getText();
-        String fecha = txt_fecha.getText();
-        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate fechaFormateada = LocalDate.parse(fecha, formatoFecha);
-        boolean estado = cb_estado.isSelected();
-        Alumno alumno = new Alumno(dni, apellido, nombre, fechaFormateada, estado);
-        alumnoData.actualizarAlumno(alumno);
+        // TODO add your handling code here: ver lo del jCalendar
+        try {
+            AlumnoData alumnoData = new AlumnoData();
+            int dni = Integer.parseInt(txt_documento.getText());
+            if (alumnoData.buscarAlumno(dni) != null) {
+                String apellido = txt_apellido.getText();
+                String nombre = txt_nombre.getText();
+                LocalDate fecha = dc_fecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                boolean estado = cb_estado.isSelected();
+                Alumno alumno = new Alumno(dni, apellido, nombre, fecha, estado);
+                alumnoData.actualizarAlumno(alumno);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encuentra el documento ingresado");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un numero valido en el campo dni");
+        } catch (DateTimeParseException ex) {
+            JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto");
+        }
+
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarActionPerformed
@@ -231,7 +264,7 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         txt_apellido.setText("");
         txt_nombre.setText("");
         cb_estado.setSelected(false);
-        txt_fecha.setText("");
+        dc_fecha.setDate(null);
     }//GEN-LAST:event_btn_limpiarActionPerformed
 
 
@@ -242,6 +275,7 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_limpiar;
     private javax.swing.JCheckBox cb_estado;
+    private com.toedter.calendar.JDateChooser dc_fecha;
     private javax.swing.JLabel lbl_apellido;
     private javax.swing.JLabel lbl_documento;
     private javax.swing.JLabel lbl_estado;
@@ -250,7 +284,6 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbl_titulo;
     private javax.swing.JTextField txt_apellido;
     private javax.swing.JTextField txt_documento;
-    private javax.swing.JTextField txt_fecha;
     private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
 

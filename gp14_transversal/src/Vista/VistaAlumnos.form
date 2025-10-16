@@ -32,10 +32,7 @@
                               <Component id="lbl_fecha" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btn_guardar" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbl_nombre" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="btn_guardar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -56,16 +53,15 @@
                                   <Component id="lbl_estado" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbl_apellido" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbl_documento" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_nombre" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txt_fecha" min="-2" pref="189" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="cb_estado" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txt_apellido" max="32767" attributes="0"/>
-                                      <Component id="txt_documento" alignment="0" min="-2" pref="189" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="txt_nombre" alignment="0" min="-2" pref="189" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="cb_estado" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_apellido" max="32767" attributes="0"/>
+                                  <Component id="txt_documento" alignment="0" pref="189" max="32767" attributes="0"/>
+                                  <Component id="txt_nombre" alignment="0" pref="189" max="32767" attributes="0"/>
+                                  <Component id="dc_fecha" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -100,7 +96,7 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lbl_nombre" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbl_nombre" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="txt_nombre" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -109,18 +105,18 @@
                   <Component id="cb_estado" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbl_fecha" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt_fecha" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="lbl_fecha" min="-2" max="-2" attributes="0"/>
+                  <Component id="dc_fecha" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btn_guardar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_borrar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_actualizar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_limpiar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="68" max="32767" attributes="0"/>
+              <EmptySpace pref="65" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -205,7 +201,10 @@
         <Property name="text" type="java.lang.String" value="Fecha de Nacimiento:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txt_fecha">
+    <Component class="com.toedter.calendar.JDateChooser" name="dc_fecha">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
