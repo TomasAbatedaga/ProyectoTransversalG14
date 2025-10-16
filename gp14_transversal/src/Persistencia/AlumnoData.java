@@ -45,7 +45,7 @@ public class AlumnoData {
     public List<Alumno> listarAlumnos(){
         Alumno a = null;
         List<Alumno> alumnos = new ArrayList<>();
-        String sql = "SELECT * from alumno";
+        String sql = "SELECT id_alumno, dni, apellido, nombre, fecha_nacimiento from alumno WHERE estado = 1";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet resultado = ps.executeQuery();
@@ -56,7 +56,7 @@ public class AlumnoData {
                 a.setApellido(resultado.getString("apellido"));
                 a.setNombre(resultado.getString("nombre"));
                 a.setFecha_nacimiento(resultado.getDate("fecha_nacimiento").toLocalDate());
-                a.setEstado(resultado.getBoolean("estado"));
+                a.setEstado(true);
                 alumnos.add(a);
             }
             ps.close();
