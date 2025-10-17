@@ -1,17 +1,63 @@
 package Vista;
 
-import Modelo.Materia;
 import javax.swing.table.DefaultTableModel;
+import Modelo.*;
+import Persistencia.*;
+import java.sql.Connection;
+import java.util.ArrayList;
+
 
 public class ListarInscripciones extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloLI = new DefaultTableModel();
+    private ArrayList<Materia> listaMateria;
+    private ArrayList<Alumno> listaAlumno;
+    private InscripcionData inscData;
+    private MateriaData mData;
+    private AlumnoData aData;
+    Connection con = null;
+    
     
     public ListarInscripciones() {
         initComponents();
+        aData = new AlumnoData();
+        mData = new MateriaData();
+        inscData = new InscripcionData();
+        listaAlumno = (ArrayList<Alumno>)aData.listarAlumnos();
+        listaMateria = (ArrayList<Materia>)mData.listarMaterias();
+        modeloLI = new DefaultTableModel();
+        cargarMaterias();
+       
         armarCabecera();
     }
 
+    private void cargarMaterias(){
+        for(Materia materia: listaMateria){       
+            jcb_Materia.addItem(materia);
+        }
+    }
+    
+ 
+    
+    private void borrarFilaTabla(){
+        int indice = modeloLI.getRowCount() -1;
+        for(int i = indice;i >= 0; i--){
+            modeloLI.removeRow(i);
+        }
+    }
+   
+    private void alumnosInscriptos(){
+        //borrarFilaTabla();
+        Materia select = (Materia)jcb_Materia.getSelectedItem();
+        listaAlumno = (ArrayList)inscData.obtenerAlumnosMateria(select.getId_materia());
+        for(Alumno alumno: listaAlumno){    
+            modeloLI.addRow(new Object[] {
+                alumno.getId_alumno(),
+                alumno.getNombre(),
+                alumno.getApellido()
+            });
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -23,7 +69,7 @@ public class ListarInscripciones extends javax.swing.JInternalFrame {
 
         lbl_titulo = new javax.swing.JLabel();
         lbl_seleccion = new javax.swing.JLabel();
-        cbx_seleccion = new javax.swing.JComboBox<>();
+        jcb_Materia = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_lista_inscripciones = new javax.swing.JTable();
 
@@ -32,6 +78,12 @@ public class ListarInscripciones extends javax.swing.JInternalFrame {
         lbl_titulo.setText("Lista de Inscripciones");
 
         lbl_seleccion.setText("Seleccione Materia :");
+
+        jcb_Materia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcb_MateriaActionPerformed(evt);
+            }
+        });
 
         tbl_lista_inscripciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -56,7 +108,7 @@ public class ListarInscripciones extends javax.swing.JInternalFrame {
                         .addGap(95, 95, 95)
                         .addComponent(lbl_seleccion)
                         .addGap(18, 18, 18)
-                        .addComponent(cbx_seleccion, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jcb_Materia, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(246, 246, 246)
                         .addComponent(lbl_titulo))
@@ -73,7 +125,7 @@ public class ListarInscripciones extends javax.swing.JInternalFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_seleccion)
-                    .addComponent(cbx_seleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcb_Materia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(68, Short.MAX_VALUE))
@@ -82,19 +134,22 @@ public class ListarInscripciones extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jcb_MateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_MateriaActionPerformed
+    alumnosInscriptos();  
+    }//GEN-LAST:event_jcb_MateriaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<Materia> cbx_seleccion;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<Materia> jcb_Materia;
     private javax.swing.JLabel lbl_seleccion;
     private javax.swing.JLabel lbl_titulo;
     private javax.swing.JTable tbl_lista_inscripciones;
     // End of variables declaration//GEN-END:variables
 private void armarCabecera() {
         modeloLI.addColumn("ID");
-        modeloLI.addColumn("DNI");
-        modeloLI.addColumn("Apellido");
         modeloLI.addColumn("Nombre");
+        modeloLI.addColumn("Apellido");
         tbl_lista_inscripciones.setModel(modeloLI);
     }
 }
