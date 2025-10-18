@@ -1,20 +1,47 @@
 package Vista;
 
 import Modelo.Alumno;
+import Modelo.Inscripcion;
+import Modelo.Materia;
+import Persistencia.AlumnoData;
+import Persistencia.InscripcionData;
+import Persistencia.MateriaData;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class VistaCargarNotas extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloNotas = new DefaultTableModel();
-
+    private DefaultTableModel modelo = new DefaultTableModel();
+    private List<Alumno> listAlumno;
+    private List<Materia> listMateria;
+    private List<Inscripcion> listainscripcion;
+    private InscripcionData Inscripcionins;
+    private MateriaData materiam;
+    private AlumnoData Alumnoa;
+    private Inscripcion inscripcion = null;
+    private Materia materia = null;
+    private Alumno Alumno;
     /**
      * Creates new form VistaCargarNotas
      */
     public VistaCargarNotas() {
         initComponents();
+        Alumnoa = new AlumnoData();
+        listAlumno = Alumnoa.listarAlumnos();
+        modeloNotas = new DefaultTableModel();
+        modelo = new DefaultTableModel();
+        inscripcion = new Inscripcion();
+        Inscripcionins = new InscripcionData();
+        materiam = new MateriaData();
+        
+        cargarAlumnos();
         armarCabecera();
+        borrarFila();
     }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,9 +53,9 @@ public class VistaCargarNotas extends javax.swing.JInternalFrame {
 
         lbl_titulo = new javax.swing.JLabel();
         lbl_seleccion = new javax.swing.JLabel();
-        cbx_seleccion = new javax.swing.JComboBox<>();
+        JseleccionarAlum = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_notas = new javax.swing.JTable();
+        JTMaterias = new javax.swing.JTable();
         btn_guardar = new javax.swing.JButton();
 
         setClosable(true);
@@ -37,7 +64,13 @@ public class VistaCargarNotas extends javax.swing.JInternalFrame {
 
         lbl_seleccion.setText("Seleccione un Alumno :");
 
-        tbl_notas.setModel(new javax.swing.table.DefaultTableModel(
+        JseleccionarAlum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JseleccionarAlumActionPerformed(evt);
+            }
+        });
+
+        JTMaterias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -48,7 +81,7 @@ public class VistaCargarNotas extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tbl_notas);
+        jScrollPane1.setViewportView(JTMaterias);
 
         btn_guardar.setText("Guardar");
 
@@ -65,7 +98,7 @@ public class VistaCargarNotas extends javax.swing.JInternalFrame {
                         .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_titulo)
-                            .addComponent(cbx_seleccion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(JseleccionarAlum, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(41, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -80,7 +113,7 @@ public class VistaCargarNotas extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_seleccion)
-                    .addComponent(cbx_seleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JseleccionarAlum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
@@ -91,19 +124,45 @@ public class VistaCargarNotas extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void JseleccionarAlumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JseleccionarAlumActionPerformed
+        Alumno elegido = (Alumno)JseleccionarAlum.getSelectedItem();
+        listainscripcion = Inscripcionins.obtenerInscripcioneID(elegido.getId_alumno());
+        inscripcion.getMateria().getId_materia();
+        inscripcion.getMateria().getNombre();
+        inscripcion.getNota();
+    }//GEN-LAST:event_JseleccionarAlumActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable JTMaterias;
+    private javax.swing.JComboBox<Alumno> JseleccionarAlum;
     private javax.swing.JButton btn_guardar;
-    private javax.swing.JComboBox<Alumno> cbx_seleccion;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_seleccion;
     private javax.swing.JLabel lbl_titulo;
-    private javax.swing.JTable tbl_notas;
     // End of variables declaration//GEN-END:variables
-private void armarCabecera() {
+
+    private void cargarAlumnos() {
+    JseleccionarAlum.removeAllItems(); 
+      try {
+        List<Alumno> lista = Alumnoa.listarAlumnos(); 
+        for (Alumno item : lista) {
+            JseleccionarAlum.addItem(item); 
+        }
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error al cargar alumnos: " + ex.getMessage());
+    }
+}
+
+
+    private void armarCabecera() {
         modeloNotas.addColumn("ID");
         modeloNotas.addColumn("Nombre");
         modeloNotas.addColumn("Nota");
-        tbl_notas.setModel(modeloNotas);
+        JTMaterias.setModel(modeloNotas);
+   }
+
+    private void borrarFila() {
+        int ind = modelo.getRowCount() - 1;
     }
 }

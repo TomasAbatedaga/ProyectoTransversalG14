@@ -148,7 +148,7 @@ public class InscripcionData {
     public List<Inscripcion> obtenerInscripcioneID(int id){
         ArrayList<Inscripcion> inscripciones = new ArrayList<>();
         
-                String sql = "SELECT * FROM inscripcion WHERE id_alumno = ?" ;
+                String sql = "SELECT id_inscripcion, id_alumno, materia.id_materia, materia.nombre, nota FROM inscripcion JOIN materia ON (inscripcion.id_materia = materia.id_materia) WHERE id_alumno = ?;";
          
          try {
              PreparedStatement ps = con.prepareStatement(sql);
