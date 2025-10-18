@@ -47,7 +47,7 @@ public class ListarInscripciones extends javax.swing.JInternalFrame {
     }
    
     private void alumnosInscriptos(){
-        //borrarFilaTabla();
+        borrarFilaTabla();
         Materia select = (Materia)jcb_Materia.getSelectedItem();
         listaAlumno = (ArrayList)inscData.obtenerAlumnosMateria(select.getId_materia());
         for(Alumno alumno: listaAlumno){    
