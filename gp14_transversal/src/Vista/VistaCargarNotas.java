@@ -23,25 +23,32 @@ public class VistaCargarNotas extends javax.swing.JInternalFrame {
     private Inscripcion inscripcion = null;
     private Materia materia = null;
     private Alumno Alumno;
+
     /**
      * Creates new form VistaCargarNotas
      */
     public VistaCargarNotas() {
         initComponents();
         Alumnoa = new AlumnoData();
-        listAlumno = Alumnoa.listarAlumnos();
+        modeloNotas = new DefaultTableModel() {
+            public boolean isCellEditable(int row, int column) {
+                if (column == 2) {
+                    return true;
+                }else return false;
+            }
+        };
+       
         modeloNotas = new DefaultTableModel();
         modelo = new DefaultTableModel();
         inscripcion = new Inscripcion();
         Inscripcionins = new InscripcionData();
         materiam = new MateriaData();
-        
+
         cargarAlumnos();
         armarCabecera();
         borrarFila();
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,18 +79,20 @@ public class VistaCargarNotas extends javax.swing.JInternalFrame {
 
         JTMaterias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(JTMaterias);
 
         btn_guardar.setText("Guardar");
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,12 +134,70 @@ public class VistaCargarNotas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JseleccionarAlumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JseleccionarAlumActionPerformed
-        Alumno elegido = (Alumno)JseleccionarAlum.getSelectedItem();
+        modeloNotas.setRowCount(0);
+
+        Alumno elegido = (Alumno) JseleccionarAlum.getSelectedItem();
+        if (elegido == null) {
+            return;
+        }
+
         listainscripcion = Inscripcionins.obtenerInscripcioneID(elegido.getId_alumno());
-        inscripcion.getMateria().getId_materia();
-        inscripcion.getMateria().getNombre();
-        inscripcion.getNota();
+
+        if (listainscripcion != null && !listainscripcion.isEmpty()) {
+
+            for (Inscripcion insc : listainscripcion) {
+
+                if (insc.getMateria() != null) {
+
+                    Object[] fila = {
+                        insc.getMateria().getId_materia(),
+                        insc.getMateria().getNombre(),
+                        insc.getNota()
+                    };
+
+                    modeloNotas.addRow(fila);
+
+                } else {
+                    Object[] fila = {0, "Materia corrupta", 0};
+                    modeloNotas.addRow(fila);
+                }
+            }
+        } else {
+            System.out.println("El alumno no tiene inscripciones.");
+        }
     }//GEN-LAST:event_JseleccionarAlumActionPerformed
+
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+    if (JTMaterias.isEditing()) {
+        JTMaterias.getCellEditor().stopCellEditing();
+    }
+        
+    Alumno alumnoSeleccionado = (Alumno) JseleccionarAlum.getSelectedItem();
+    if (alumnoSeleccionado == null) {
+        JOptionPane.showMessageDialog(this, "Error: No hay un alumno seleccionado.");
+        return;
+    }
+    int idAlumno = alumnoSeleccionado.getId_alumno();
+    int filaSeleccionada = JTMaterias.getSelectedRow();
+    if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione una materia de la tabla para guardar la nota.");
+        return;}
+    try {
+        int idMateria = (Integer) JTMaterias.getValueAt(filaSeleccionada, 0);
+        int nuevaNota = Integer.parseInt(JTMaterias.getValueAt(filaSeleccionada, 2).toString());
+
+        Inscripcionins.actualizarNota(idAlumno, idMateria, nuevaNota);
+
+      
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Error: La nota debe ser un número válido (ej. 8.5).");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al guardar la nota: " + e.getMessage());
+        
+    }
+
+    }//GEN-LAST:event_btn_guardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -143,24 +210,23 @@ public class VistaCargarNotas extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarAlumnos() {
-    JseleccionarAlum.removeAllItems(); 
-      try {
-        List<Alumno> lista = Alumnoa.listarAlumnos(); 
-        for (Alumno item : lista) {
-            JseleccionarAlum.addItem(item); 
+        JseleccionarAlum.removeAllItems();
+        try {
+            List<Alumno> lista = Alumnoa.listarAlumnos();
+            for (Alumno item : lista) {
+                JseleccionarAlum.addItem(item);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar alumnos: " + ex.getMessage());
         }
-    } catch (Exception ex) {
-        JOptionPane.showMessageDialog(this, "Error al cargar alumnos: " + ex.getMessage());
     }
-}
-
 
     private void armarCabecera() {
         modeloNotas.addColumn("ID");
         modeloNotas.addColumn("Nombre");
         modeloNotas.addColumn("Nota");
         JTMaterias.setModel(modeloNotas);
-   }
+    }
 
     private void borrarFila() {
         int ind = modelo.getRowCount() - 1;

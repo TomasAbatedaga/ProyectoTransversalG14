@@ -34,12 +34,9 @@ public class Gp14_transversal {
         materiaData.agregarMateria(materia); */
         
         
-        InscripcionData datain = new InscripcionData();
-        for(Alumno m: datain.obtenerAlumnosMateria(3) ){
-            System.out.println(m);
-        }
         
-                 
+        
+              
         
         
     }

@@ -33,6 +33,8 @@ public class InscripcionData {
     
     public InscripcionData(){
         con = Conexion.getConectar();
+        this.alumnoData = new AlumnoData();
+    this.materiaData = new MateriaData();
     }
     
     public void agregarInscripcion(Inscripcion ins){
@@ -218,7 +220,7 @@ public class InscripcionData {
         return materiasCursadas;
     }//funcionando
     
-    public List<Materia> obtenerMateriasNoCursadas(int idAlumno){ //funcionando
+    public List<Materia> obtenerMateriasNoCursadas(int idAlumno){ 
         ArrayList <Materia> materiasNoCursadas = new ArrayList<>();
         String sql = "SELECT * FROM materia WHERE estado = 1 AND id_materia not in "
                 + "(SELECT id_materia FROM inscripcion WHERE id_alumno = ?)";
